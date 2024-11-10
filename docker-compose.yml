@@ -20,3 +20,13 @@ services:
     cap_add:
       - NET_ADMIN      # Required for Pi-hole to manage network settings
     restart: unless-stopped
+  openvpn-client:
+    image: kylemanna/openvpn
+    container_name: openvpn-client
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./ovpn-config:/etc/openvpn  # Adjust the path to where your .ovpn config files are stored
+    environment:
+      - OVPN_CONFIG=config-file.ovpn  # Replace with your actual .ovpn filename
+    restart: unless-stopped
